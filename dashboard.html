@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CV Maker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark navbar-custom mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">CV Maker</a>
+            <div>
+                <button class="btn btn-outline-light me-2" onclick="toggleDarkMode()">Dark Mode</button>
+                <button class="btn btn-light text-primary fw-bold" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Welcome Hero Section -->
+        <div class="welcome-hero">
+            <h2>Welcome, <span id="userName">User</span>!</h2>
+            <p>Start building your professional career today.</p>
+        </div>
+
+        <div class="row justify-content-center g-4">
+            <!-- Create Resume Card -->
+            <div class="col-md-5">
+                <div class="card shadow h-100 border-0">
+                    <div class="card-body text-center p-5">
+                        <div class="display-1 text-primary mb-3">+</div>
+                        <h3 class="card-title">Create New CV</h3>
+                        <p class="card-text">Build a professional CV in minutes.</p>
+                        <a href="resume-form.html" class="btn btn-primary btn-lg mt-3">Start Creating</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Resumes Card -->
+            <div class="col-md-5">
+                <div class="card shadow h-100 border-0">
+                    <div class="card-body text-center p-5">
+                        <div class="display-1 text-success mb-3">📄</div>
+                        <h3 class="card-title">My CVs</h3>
+                        <p class="card-text">View, edit, or delete your saved CVs.</p>
+                        <a href="resume-preview.html" class="btn btn-success btn-lg mt-3">View CVs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Info Section (Hidden/Debug or Detail view) -->
+        <div class="row mt-5">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">Your Profile Details</div>
+                    <ul class="list-group list-group-flush" id="displayData">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Inline script to init dashboard specific logic if needed, 
+        // mainly protecting the route and setting up the user name.
+        document.addEventListener('DOMContentLoaded', function () {
+            protectPage();
+            renderUserData();
+
+            var user = getLoggedInUser();
+            if (user) {
+                // Find full user object to get the name
+                var allUsers = getUsers();
+                var fullUser = allUsers.find(function (u) { return u.id === user.id; });
+                if (fullUser) {
+                    document.getElementById('userName').textContent = fullUser.name;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
